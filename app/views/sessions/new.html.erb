@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Inicio de Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <%= stylesheet_link_tag "styles", media: "all" %>
+    <%= stylesheet_link_tag "login", media: "all" %>
+    
+ 
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+     
+            <div class="col-md-6 login-form-container">
+                <div class="login-form p-4 p-md-5">
+                    <div class="brand mb-4">
+                        <div class="icon-circle">
+                            <span class="dollar-icon">$</span>
+                        </div>
+                        <span class="brand-name ms-2">Expense Tracker</span>
+                    </div>
+                    
+                    <h1 class="welcome-text">¡Bienvenido de nuevo!</h1>
+                    <p class="subtitle mb-5">Inicia sesion para continuar gestionando tus gastos</p>
+                    
+                    <%= form_with(url: login_path, local: true, html: {id: "loginForm"}) do |f| %>
+                        <div class="mb-3">
+                            <%= f.label :username, "Nombre de usuario", class: "form-label" %>
+                            <%= f.text_field :username, class: "form-control", placeholder: "Escribe tu Usuario", id: "username" %>
+                        </div>
+                         <div class="mb-3">
+                            <%= f.label :password, "Contraseña", class: "form-label" %>
+                            <%= f.password_field :password, class: "form-control", placeholder: "Escribe tu Contraseña", id: "password"%>
+                        </div>
+                        <%= f.submit "Iniciar sesión", class: "btn btn-primary w-100 login-btn"%>
+                    <% end %>
+                    
+                    <div class="register-link mt-4 text-center">
+                        ¿No tienes una cuenta? <%= link_to "Registrarse" , register_path, class: "register-text"%>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 info-banner">
+                <div class="banner-content text-center">
+                    <div class="banner-icon mb-3">$</div>
+                    <h2 class="banner-title">Controla tus finanzas</h2>
+                    <p class="banner-text">
+                        Gestiona tus gastos de manera eficiente y toma el control de tus finanzas personales con nuestra aplicación intuitiva.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</body>
+</html>
+
