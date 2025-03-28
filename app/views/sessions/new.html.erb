@@ -26,15 +26,25 @@
                     
                     <h1 class="welcome-text">¡Bienvenido de nuevo!</h1>
                     <p class="subtitle mb-5">Inicia sesion para continuar gestionando tus gastos</p>
-                    
+
+               
+
                     <%= form_with(url: login_path, local: true, html: {id: "loginForm"}) do |f| %>
+                      
+                            <% if flash[:alert]%>  
+                            <div class="alert alert-danger" role="alert">
+                                <span class="form-label"> <%= flash[:alert] %> </span>
+                            </div>
+                            <% end %>
+                      
+                        
                         <div class="mb-3">
                             <%= f.label :username, "Nombre de usuario", class: "form-label" %>
-                            <%= f.text_field :username, class: "form-control", placeholder: "Escribe tu Usuario", id: "username" %>
+                            <%= f.text_field :username, class: "form-control", placeholder: "Escribe tu Usuario", id: "username", required: true %>
                         </div>
                          <div class="mb-3">
                             <%= f.label :password, "Contraseña", class: "form-label" %>
-                            <%= f.password_field :password, class: "form-control", placeholder: "Escribe tu Contraseña", id: "password"%>
+                            <%= f.password_field :password, class: "form-control", placeholder: "Escribe tu Contraseña", id: "password", required: true %>
                         </div>
                         <%= f.submit "Iniciar sesión", class: "btn btn-primary w-100 login-btn"%>
                     <% end %>

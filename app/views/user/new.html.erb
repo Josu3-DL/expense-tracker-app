@@ -27,17 +27,28 @@
                     <p class="subtitle mb-5">Registrate para comenzar a gestionar tus gastos</p>
                     
                       <%= form_with(model: @user, url: register_path, local: true, html: {id: "registerForm"}) do |f| %>
+
+                        <% if flash[:alert] %>
+                        <div class="alert alert-danger" role="alert">
+                            <ul>
+                                <% flash[:alert].each do |error| %>
+                                    <li class="form-label"> <%= error %> </li>
+                                <% end %>
+                            </ul>
+                        </div>
+                        <% end %>
+                        
                         <div class="mb-3">
                             <%= f.label :username, "Nombre de usuario", class: "form-label"  %>
-                            <%= f.text_field :username, class: "form-control", placeholder: "Escribe tu Usuario", id: "username" %>
+                            <%= f.text_field :username, class: "form-control", placeholder: "Escribe tu Usuario", id: "username", required: true %>
                         </div>
                         <div class="mb-3">
                             <%= f.label :password, "Contraseña", class: "form-label" %>
-                            <%= f.password_field :password, class: "form-control", placeholder: "Escribe tu Contraseña", id: "password"%>
+                            <%= f.password_field :password, class: "form-control", placeholder: "Escribe tu Contraseña", id: "password", required: true%>
                         </div>
                         <div class="mb-3">
                             <%= f.label :password_confirmation, "Confirmar contraseña", class: "form-label" %>
-                            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmar Contraseña", id: "confirmPassword"%>
+                            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmar Contraseña", id: "confirmPassword", required: true%>
                         </div>
                         <%= f.submit "Registrarse", class: "btn btn-primary w-100 login-btn" %>
                     <% end %>

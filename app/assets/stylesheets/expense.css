@@ -1,0 +1,366 @@
+/* Estilos específicos para el dashboard */
+body {
+  background-color: var(--magnolia);
+  min-height: 100vh;
+}
+
+.dashboard-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 10px 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--raisin-black);
+  background-color: transparent;
+  border: none;
+}
+
+.user-btn:hover {
+  color: var(--electric-indigo);
+}
+
+.new-expense-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--electric-indigo);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+
+.new-expense-btn:hover {
+  background-color: var(--medium-slate-blue);
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: white;
+}
+
+/* Expenses Card */
+.expenses-card {
+  height: 100%;
+}
+
+.expenses-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--raisin-black);
+  margin-bottom: 5px;
+}
+
+.expenses-subtitle {
+  color: var(--raisin-black);
+  opacity: 0.7;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.expenses-table {
+  margin-top: 15px;
+}
+
+.expenses-table th {
+  color: var(--raisin-black);
+  font-weight: 600;
+  border-top: none;
+  border-bottom: 1px solid var(--ash-gray);
+}
+
+.expenses-table td {
+  vertical-align: middle;
+  color: var(--raisin-black);
+  border-bottom: 1px solid var(--ash-gray);
+  padding: 12px 8px;
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.category-badge.school {
+  background-color: #e0d4ff;
+  color: var(--electric-indigo);
+}
+
+.action-btn {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  color: var(--raisin-black);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.action-btn:hover {
+  opacity: 1;
+}
+
+.edit-btn:hover {
+  color: var(--medium-slate-blue);
+}
+
+.delete-btn:hover {
+  color: #dc3545;
+}
+
+/* Total Card */
+.total-card {
+  background-color: var(--electric-indigo);
+  color: white;
+}
+
+.total-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.total-icon {
+  font-size: 20px;
+}
+
+.total-amount {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* Summary Card */
+.summary-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--raisin-black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.summary-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--raisin-black);
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--raisin-black);
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--ash-gray);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--ash-gray);
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .summary-stats {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Agregar estos estilos al final del archivo para el modal de gastos */
+
+/* Modal de gastos */
+.expense-modal {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.expense-modal .modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--electric-indigo);
+  display: flex;
+  align-items: center;
+}
+
+.expense-modal-icon {
+  color: var(--electric-indigo);
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.expense-modal-subtitle {
+  font-size: 14px;
+  color: var(--raisin-black);
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.expense-modal .form-label {
+  font-weight: 500;
+  color: var(--raisin-black);
+  margin-bottom: 8px;
+}
+
+.custom-input {
+  background-color: var(--magnolia);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: var(--raisin-black);
+}
+
+.custom-input::placeholder {
+  color: var(--raisin-black);
+  opacity: 0.5;
+}
+
+.custom-input:focus {
+  box-shadow: 0 0 0 2px rgba(99, 32, 238, 0.2);
+  background-color: var(--magnolia);
+}
+
+.custom-input-icon {
+  background-color: var(--magnolia);
+  border: none;
+  color: var(--raisin-black);
+  opacity: 0.7;
+}
+
+.cancel-btn {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 500;
+  color: var(--raisin-black);
+}
+
+.save-btn {
+  background-color: var(--electric-indigo);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 500;
+}
+
+.save-btn:hover {
+  background-color: var(--medium-slate-blue);
+}
+
+.modal-footer {
+  padding: 20px;
+  gap: 10px;
+}
+
+/* Agregar estos estilos al final del archivo para el modal de perfil de usuario */
+
+/* Modal de perfil de usuario */
+.user-profile-modal {
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 300px;
+  background-color: var(--magnolia);
+  border: none;
+}
+
+.user-profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--magnolia);
+  border: 2px solid var(--electric-indigo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.user-avatar i {
+  font-size: 24px;
+  color: var(--electric-indigo);
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--raisin-black);
+  margin-bottom: 15px;
+}
+
+.logout-btn {
+  background-color: var(--electric-indigo);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 30px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.logout-btn:hover {
+  background-color: var(--medium-slate-blue);
+  color: white;
+}
+
