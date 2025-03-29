@@ -72,10 +72,12 @@
                                               C$ <%= expense.ammount %>
                                             </td>
                                             <td>
-                                                <button class="btn action-btn delete-btn">
+                                                <button class="btn action-btn delete-btn" data-bs-toggle="modal" data-bs-target="#deleteExpenseModal"
+                                                data-expense-id= <%= expense.id %> >
                                                     <i class="bi bi-trash"></i>
                                                 </button>
-                                                <button class="btn action-btn edit-btn">
+
+                                                <button class="btn action-btn edit-btn" data-bs-toggle="modal" data-bs-target="#newExpenseModal">
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
                                             </td>
@@ -133,51 +135,15 @@
             <div class="modal-content expense-modal">
                 <div class="modal-header border-0">
                     <h5 class="modal-title" id="newExpenseModalLabel">
-                        <span class="expense-modal-icon">$</span> Nuevo gasto
+                        <span class="expense-modal-icon">$</span> Gasto
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="expense-modal-subtitle">Completa los detalles del nuevo gasto y haz clic en guardar.</p>
+                    <p class="expense-modal-subtitle">Completa los detalles del gasto y haz clic en guardar.</p>
                     
-                    <form id="newExpenseForm">
-                        <div class="mb-3">
-                            <label for="expenseName" class="form-label">Nombre</label>
-                            <input type="text" class="form-control custom-input" id="expenseName" placeholder="ej: compra de supermercado" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="expenseAmount" class="form-label">Cantidad</label>
-                            <input type="text" class="form-control custom-input" id="expenseAmount" placeholder="$0.00" required>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="expenseCategory" class="form-label">Categoría</label>
-                            <select class="form-select custom-input" id="expenseCategory" required>
-                                <option value="" selected disabled>selecciona una categoría</option>
-                                <option value="Escuela">Escuela</option>
-                                <option value="Comida">Comida</option>
-                                <option value="Transporte">Transporte</option>
-                                <option value="Entretenimiento">Entretenimiento</option>
-                                <option value="Salud">Salud</option>
-                                <option value="Otros">Otros</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="expenseDate" class="form-label">Fecha</label>
-                            <div class="input-group">
-                                <span class="input-group-text custom-input-icon">
-                                    <i class="bi bi-calendar"></i>
-                                </span>
-                                <input type="text" class="form-control custom-input" id="expenseDate" placeholder="24 de marzo de 2025" required>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer border-0 justify-content-center">
-                    <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary save-btn" id="saveExpenseBtn">Guardar</button>
+                   <%= render "form", expense: @expense %>
+                    
                 </div>
             </div>
         </div>
@@ -195,16 +161,71 @@
                         <div class="user-name">
                             <%= @user.username %>
                         </div>
-                        <button class="btn logout-btn" id="logoutBtn">
-                            <%= link_to "Salir", logout_path %>
-                        </button>
+                        <%= button_to "Salir", logout_path, 
+                            method: :get, # según tu configuración de ruta
+                            class: "btn logout-btn",
+                            id: "logoutBtn"
+                        %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!--Delete modal-->
+    <div class="modal fade" id="deleteExpenseModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content user-profile-modal">
+                <div class="modal-body p-3">
+                    <div class="user-profile-content">
+                        <div class="user-avatar">
+                            <i class="bi bi-trash"></i>
+                        </div>
+                        <div class="user-name text-center">
+                            ¿Estas seguro de eliminar este gasto?
+                        </div>
+                    </div>
+                </div>
+                  <div class="modal-footer border-0 justify-content-center">
+                            <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">Cancelar</button>
+
+                                
+
+                            <%= form_with url: "#", method: :delete, id: "deleteExpenseForm", local: true do |f| %>
+                            <!--
+                                <button type="submit" class="btn btn-primary save-btn" data-bs-dismiss="modal">Aceptar</button>
+                            -->
+                                <%= f.submit "Aceptar", class: "btn btn-primary save-btn" %>
+                            <% end %>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var deleteModal = document.getElementById('deleteExpenseModal');
+        if (deleteModal) {
+            deleteModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var expenseId = button.getAttribute('data-expense-id');
+            console.log(expenseId)
+          
+            var form = deleteModal.querySelector('form');
+            form.action = `/dashboard/${expenseId}`;
+            form.reset();
+            });
+          
+            deleteModal.addEventListener('hidden.bs.modal', function() {
+            var form = document.getElementById('deleteExpenseForm');
+            form.action = '#';
+            });
+        }
+    });
+    </script>
+    
 
 </body>
 </html>

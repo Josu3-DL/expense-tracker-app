@@ -1,0 +1,34 @@
+<%= form_with model: @expense, url: dashboard_path, html: { id: 'newExpenseForm' }, local: true do |f| %>
+
+   <% if flash[:alert]%>  
+    <div class="alert alert-danger" role="alert">
+      <span class="form-label"> <%= flash[:alert] %> </span>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :name, "Nombre", class: "form-label" %>
+    <%= f.text_field :name, class: "form-control custom-input", placeholder: "ej: compra de supermercado", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :ammount, "Cantidad", class: "form-label" %>
+    <%= f.text_field :ammount, class: "form-control custom-input", placeholder: "C$0.00", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :category, "Categoría", class: "form-label" %>
+    <%= f.select :category, ["Escuela", "Comida", "Transporte", "Entretenimiento", "Salud", "Otros"], { prompt: "Selecciona una categoría" }, class: "form-select custom-input", required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :date, "Fecha", class: "form-label" %>
+    <%= f.date_field :date, class: "form-control custom-input", required: true %>
+  </div>
+
+    <div class="modal-footer border-0 justify-content-center">
+        <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary save-btn" id="saveExpenseBtn">Guardar</button>
+    </div>
+<% end %>
+
