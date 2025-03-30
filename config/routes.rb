@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  resources :expense, path: 'dashboard', only: [:index, :create, :destroy]
   
 
   get "dashboard", to: "expense#index"

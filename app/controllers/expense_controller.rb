@@ -24,7 +24,8 @@ class ExpenseController < ApplicationController
 
     def destroy
         #@expense = current_user.expenses.find(params[:id])
-        @expense = Expense.find(params[:id])
+        #@expense = Expense.find(params[:id])
+        @expense = current_user.expenses.find(params[:id])
         @expense.destroy
         redirect_to dashboard_path
     end
