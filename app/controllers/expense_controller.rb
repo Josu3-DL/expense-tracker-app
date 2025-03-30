@@ -13,7 +13,7 @@ class ExpenseController < ApplicationController
     def create
         @expense = current_user.expenses.build(expense_params)
         if @expense.save
-            redirect_to dashboard_path
+            redirect_to dashboard_path(reload: true)
         else
             #puts @expense.errors.full_messages
             @user = current_user
@@ -23,13 +23,21 @@ class ExpenseController < ApplicationController
     end
 
     def destroy
-        #@expense = current_user.expenses.find(params[:id])
-        #@expense = Expense.find(params[:id])
         @expense = current_user.expenses.find(params[:id])
         @expense.destroy
-        redirect_to dashboard_path
+        redirect_to dashboard_path(reload: true)
     end
+    
+      def update
+        @expense = current_user.expenses.find(params[:id])
+        if @expense.update(expense_params)
+          redirect_to dashboard_path(reload: true) 
+        else
+          render :edit 
+        end
+      end
 
+    
     private
     def expense_params
         params.require(:expense).permit(:name,:ammount,:category,:date)

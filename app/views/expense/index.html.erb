@@ -79,9 +79,15 @@
                                                     <i class="bi bi-trash"></i>
                                                 <% end %>
 
-
-                                                <button class="btn action-btn edit-btn" data-bs-toggle="modal" data-bs-target="#newExpenseModal">
-                                                    <i class="bi bi-pencil"></i>
+                                               <button class="btn action-btn edit-btn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editExpenseModal"
+                                                data-expense-id="<%= expense.id %>"
+                                                data-expense-name="<%= expense.name %>"
+                                                data-expense-ammount="<%= expense.ammount %>"
+                                                data-expense-category="<%= expense.category %>"
+                                                data-expense-date="<%= expense.date %>">
+                                                <i class="bi bi-pencil"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -144,13 +150,30 @@
                 </div>
                 <div class="modal-body">
                     <p class="expense-modal-subtitle">Completa los detalles del gasto y haz clic en guardar.</p>
-                    
                    <%= render "form", expense: @expense %>
-                    
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal de Edición (nuevo) -->
+<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content expense-modal">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">
+          <span class="expense-modal-icon">$</span> Editar Gasto
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="editExpenseModalBody">
+            <%= render "edit_form", expense: @expense %>
+      </div>
+    </div>
+  </div>
+</div>
+
+   
 
     <!-- User Profile Modal -->
     <div class="modal fade" id="userProfileModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true">
@@ -175,41 +198,36 @@
         </div>
     </div>
 
-    <!--Delete modal 
-    <div class="modal fade" id="deleteExpenseModal" tabindex="-1" aria-labelledby="userProfileModalLabel" aria-hidden="true"  >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content user-profile-modal">
-                <div class="modal-body p-3">
-                    <div class="user-profile-content">
-                        <div class="user-avatar">
-                            <i class="bi bi-trash"></i>
-                        </div>
-                        <div class="user-name text-center">
-                            ¿Estas seguro de eliminar este gasto?
-                        </div>
-                    </div>
-                </div>
-                  <div class="modal-footer border-0 justify-content-center">
-                            <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">Cancelar</button>
-
-                                
-
-                            <%= form_with url: dashboard_path("__EXPENSE_ID__"), method: :delete, id: "deleteExpenseForm", local: true do |f| %>
-                            <!
-                                <button type="submit" class="btn btn-primary save-btn" data-bs-dismiss="modal">Aceptar</button>
-                            
-                                <%= f.submit "Aceptar", class: "btn btn-primary save-btn" %>
-                            <% end %>
-
-                    </div>
-            </div>
-        </div>
-    </div>
-    -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
- 
-    
+    <% if params[:reload] %>
+    <script>
+        if (window.location.search.includes('reload=true')) {
+        const newUrl = window.location.pathname; 
+        window.history.replaceState({}, document.title, newUrl); 
+        window.location.reload(); 
+        }
+    </script>
+    <% end %>
+
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".edit-btn").forEach(button => {
+      button.addEventListener("click", function() {
+        let expenseId = this.dataset.expenseId;
+        let name = this.dataset.expenseName;
+        let ammount = this.dataset.expenseAmmount;
+        let category = this.dataset.expenseCategory;
+        let date = this.dataset.expenseDate;
+        
+        document.querySelector("#editExpenseModalBody form").setAttribute("action", `/dashboard/${expenseId}`);
+        document.querySelector("#editExpenseModalBody input[name='expense[name]']").value = name;
+        document.querySelector("#editExpenseModalBody input[name='expense[ammount]']").value = ammount;
+        document.querySelector("#editExpenseModalBody select[name='expense[category]']").value = category;
+        document.querySelector("#editExpenseModalBody input[name='expense[date]']").value = date;
+      });
+    });
+  });
+</script>
 
 </body>
 </html>

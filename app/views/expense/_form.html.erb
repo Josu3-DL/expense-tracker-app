@@ -1,6 +1,6 @@
-<%= form_with model: @expense, url: dashboard_path, html: { id: 'newExpenseForm' }, local: true do |f| %>
+<%= form_with model: expense, url: dashboard_path, method: :post, html: { id: 'expenseForm' }, local: true do |f| %>
 
-   <% if flash[:alert]%>  
+  <% if flash[:alert]%>  
     <div class="alert alert-danger" role="alert">
       <span class="form-label"> <%= flash[:alert] %> </span>
     </div>
@@ -26,9 +26,8 @@
     <%= f.date_field :date, class: "form-control custom-input", required: true %>
   </div>
 
-    <div class="modal-footer border-0 justify-content-center">
-        <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary save-btn" id="saveExpenseBtn">Guardar</button>
-    </div>
+  <div class="modal-footer border-0 justify-content-center">
+    <button type="button" class="btn btn-outline-secondary cancel-btn" data-bs-dismiss="modal">Cancelar</button>
+    <%= f.submit "Guardar", class: "btn btn-primary save-btn" %>
+  </div>
 <% end %>
-

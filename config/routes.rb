@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :expense, path: 'dashboard', only: [:index, :create, :destroy]
-  
-
+  resources :expense, path: 'dashboard', only: [:destroy, :update] 
+ 
   get "dashboard", to: "expense#index"
   post "dashboard", to: "expense#create"
+  patch "dashboard/:id", to: "expense#update"
   delete "dashboard/:id", to: "expense#destroy"
-  
+
   get "register", to: "user#new"
   post 'register', to: 'user#create'
   
