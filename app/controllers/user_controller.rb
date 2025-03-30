@@ -8,8 +8,7 @@ class UserController < ApplicationController
     if @user.save
       redirect_to login_path, notice: 'Cuenta creada exitosamente'
     else
-      flash.now[:alert] = @user.errors.full_messages
-      render :new
+      render :new,  status: :unprocessable_entity
     end
   end
 

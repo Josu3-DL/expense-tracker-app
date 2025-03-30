@@ -28,12 +28,12 @@
                     
                       <%= form_with(model: @user, url: register_path, local: true, html: {id: "registerForm"}) do |f| %>
 
-                        <% if flash[:alert] %>
+                        <% if @user.errors.any? %>
                         <div class="alert alert-danger" role="alert">
                             <ul>
-                                <% flash[:alert].each do |error| %>
-                                    <li class="form-label"> <%= error %> </li>
-                                <% end %>
+                                <% @user.errors.full_messages.each do |error| %>
+                                    <span><%= error %></span>  
+                                <% end %>             
                             </ul>
                         </div>
                         <% end %>
