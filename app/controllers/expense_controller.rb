@@ -3,15 +3,16 @@ class ExpenseController < ApplicationController
     
     def index
         @user = current_user
-        @expenses = @user.expenses
-        @total_spent = @expenses.sum(:ammount)
-        @averege_spent = @expenses.average(:ammount) || 0
-        @maximum_spent = @expenses.maximum(:ammount) || 0
+        @expenses = @user.expenses.order(date: :desc)
+        @total_spent = @expenses.sum(:ammount).to_f.round(2)
+        @averege_spent = @expenses.average(:ammount).to_f.round(2) 
+        @maximum_spent = @expenses.maximum(:ammount) || 0.0
         @expense = Expense.new
     end
 
     def create
         @expense = current_user.expenses.build(expense_params)
+        @expense.ammount = @expense.ammount.to_f.round(2)
         if @expense.save
             redirect_to dashboard_path(reload: true)
         else
@@ -31,6 +32,7 @@ class ExpenseController < ApplicationController
       def update
         @expense = current_user.expenses.find(params[:id])
         if @expense.update(expense_params)
+          @expense.update(ammount: @expense.ammount.to_f.round(2))
           redirect_to dashboard_path(reload: true) 
         else
           render :edit 

@@ -72,6 +72,8 @@
                                               C$ <%= expense.ammount %>
                                             </td>
                                             <td>
+                                        
+                                    
                                                 <%= button_to expense_path(expense), 
                                                     method: :delete, 
                                                     class: "btn action-btn delete-btn",
@@ -89,6 +91,7 @@
                                                 data-expense-date="<%= expense.date %>">
                                                 <i class="bi bi-pencil"></i>
                                                 </button>
+                     
                                             </td>
                                         </tr>
                                     <% end %>
@@ -144,7 +147,7 @@
             <div class="modal-content expense-modal">
                 <div class="modal-header border-0">
                     <h5 class="modal-title" id="newExpenseModalLabel">
-                        <span class="expense-modal-icon">$</span> Gasto
+                        <span class="expense-modal-icon">$</span>Nuevo Gasto
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
